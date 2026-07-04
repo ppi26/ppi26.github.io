@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Konstantinos | Portfolio</title>
+    <style>
+        :root {
+            --bg-color: #0a0f12;
+            --panel-bg: #11181e;
+            --accent: #00ff66;
+            --accent-dim: rgba(0, 255, 102, 0.15);
+            --text-main: #e2e8f0;
+            --text-muted: #94a3b8;
+            --border: #1e293b;
+            --font-mono: 'Courier New', Courier, monospace;
+            --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: var(--font-sans);
+            line-height: 1.6;
+            padding: 0;
+        }
+
+        a {
+            color: var(--accent);
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
+
+        a:hover {
+            text-shadow: 0 0 8px var(--accent);
+        }
+
+        .mono {
+            font-family: var(--font-mono);
+        }
+
+        /* Layout Container */
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        /* Header / Nav */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 20px;
+            margin-bottom: 60px;
+        }
+
+        .logo {
+            font-weight: bold;
+            font-size: 1.2rem;
+            color: var(--accent);
+        }
+
+        nav a {
+            margin-left: 20px;
+            font-size: 0.9rem;
+        }
+
+        /* Hero Section */
+        .hero {
+            margin-bottom: 60px;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            line-height: 1.2;
+            margin-bottom: 24px;
+            max-width: 800px;
+            font-weight: 700;
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            max-width: 750px;
+            margin-bottom: 30px;
+        }
+
+        /* Achievements Strip */
+        .achievements-strip {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-bottom: 60px;
+        }
+
+        .achievement-card {
+            background: var(--panel-bg);
+            border-left: 3px solid var(--accent);
+            padding: 20px;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .achievement-card h3 {
+            font-size: 0.9rem;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+
+        .achievement-card p {
+            font-size: 0.95rem;
+            color: var(--text-main);
+        }
+
+        /* Section Global Layout */
+        section {
+            margin-bottom: 60px;
+        }
+
+        h2.section-title {
+            font-family: var(--font-mono);
+            font-size: 1.4rem;
+            color: var(--accent);
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+        }
+
+        h2.section-title::after {
+            content: '';
+            flex-grow: 1;
+            height: 1px;
+            background: var(--border);
+            margin-left: 20px;
+        }
+
+        /* Projects Grid */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 25px;
+        }
+
+        .project-card {
+            background: var(--panel-bg);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 25px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: transform 0.2s ease, border-color 0.2s ease;
+        }
+
+        .project-card:hover {
+            transform: translateY(-2px);
+            border-color: rgba(0, 255, 102, 0.3);
+        }
+
+        .project-card h3 {
+            font-size: 1.25rem;
+            margin-bottom: 12px;
+        }
+
+        .project-card p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-bottom: 20px;
+            flex-grow: 1;
+        }
+
+        .tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .tech-tag {
+            background: var(--accent-dim);
+            color: var(--accent);
+            font-size: 0.75rem;
+            padding: 4px 8px;
+            border-radius: 4px;
+        }
+
+        /* Skills Grid */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 25px;
+        }
+
+        .skills-category h3 {
+            font-size: 1rem;
+            color: var(--text-main);
+            margin-bottom: 12px;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 5px;
+        }
+
+        .skills-category ul {
+            list-style: none;
+        }
+
+        .skills-category li {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+            position: relative;
+            padding-left: 15px;
+        }
+
+        .skills-category li::before {
+            content: '›';
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+            font-weight: bold;
+        }
+
+        /* Trajectory Timeline */
+        .timeline-card {
+            background: var(--panel-bg);
+            border: 1px solid var(--border);
+            padding: 25px;
+            border-radius: 8px;
+        }
+
+        /* Footer & Contact */
+        footer {
+            border-top: 1px solid var(--border);
+            padding-top: 30px;
+            margin-top: 80px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        .footer-links a {
+            margin-right: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 1.8rem; }
+            header { margin-bottom: 40px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        
+        <!-- Header -->
+        <header>
+            <div class="logo mono">&gt; KONSTANTINOS //</div>
+            <nav class="mono">
+                <a href="#projects">.projects()</a>
+                <a href="#skills">.skills()</a>
+                <a href="#trajectory">.trajectory()</a>
+            </nav>
+        </header>
+
+        <!-- Hero -->
+        <main>
+            <section class="hero">
+                <h1 class="mono">Security, hardware, code, and a trading bot that actually backtests — this is what self-taught looks like when it's serious.</h1>
+                <p>I'm a self-taught developer and builder based in Thessaloniki, Greece. I've architected an algorithmic trading system, built home security infrastructure from individual components, and won a national cybersecurity competition solo against teams of five. I don't wait for a course to teach me something. I build it, break it, and learn from what breaks.</p>
+                <div class="mono">
+                    <a href="https://github.com/ppi26" target="_blank">[ View GitHub Profile ]</a>
+                </div>
+            </section>
+
+            <!-- Achievements Strip -->
+            <section class="achievements-strip mono">
+                <div class="achievement-card">
+                    <h3>01 // CYBERSECURITY</h3>
+                    <p>1st Place, National Capture the Flag (CTF) Competition — Entered solo at 16, against teams of five.</p>
+                </div>
+                <div class="achievement-card">
+                    <h3>02 // FINTECH</h3>
+                    <p>Confirmed Internship, Mubadala Investment Company (Abu Dhabi's sovereign wealth fund).</p>
+                </div>
+                <div class="achievement-card">
+                    <h3>03 // ACADEMICS</h3>
+                    <p>Strong results across Computer Science, Economics, and Greek Language in national entrance exams (Πανελλαδικές).</p>
+                </div>
+            </section>
+
+            <!-- Projects Grid -->
+            <section id="projects">
+                <h2 class="section-title">> FLAGSHIP_PROJECTS</h2>
+                <div class="projects-grid">
+                    
+                    <div class="project-card">
+                        <div>
+                            <h3>Algorithmic Trading Platform</h3>
+                            <p>Designed a three-layer algorithmic trading system on Alpaca's paper-trading API, backed by a custom backtesting engine that validates strategies against historical data before they ever reach the live dashboard.</p>
+                        </div>
+                        <div class="tech-stack mono">
+                            <span class="tech-tag">Python</span>
+                            <span class="tech-tag">Alpaca API</span>
+                            <span class="tech-tag">Data Pipelines</span>
+                        </div>
+                    </div>
+
+                    <div class="project-card">
+                        <div>
+                            <h3>Distributed IoT Surveillance System (v2)</h3>
+                            <p>Scaled an original custom setup into a multi-camera infrastructure: ESP32-CAM modules feeding a Raspberry Pi running MotionEye, with Tailscale providing secure remote access from anywhere — no exposed ports, no cloud subscription.</p>
+                        </div>
+                        <div class="tech-stack mono">
+                            <span class="tech-tag">ESP32-CAM</span>
+                            <span class="tech-tag">Raspberry Pi</span>
+                            <span class="tech-tag">MotionEye</span>
+                            <span class="tech-tag">Tailscale</span>
+                        </div>
+                    </div>
+
+                    <div class="project-card">
+                        <div>
+                            <h3>Network Security Toolkit</h3>
+                            <p>A Python/Scapy packet sniffer for traffic analysis, a port-forwarding + DDNS setup for remote system access, and a retired Samsung Galaxy S3 Mini repurposed into a working network node — proof that good security engineering doesn't need a massive hardware budget.</p>
+                        </div>
+                        <div class="tech-stack mono">
+                            <span class="tech-tag">Python</span>
+                            <span class="tech-tag">Scapy</span>
+                            <span class="tech-tag">Networking</span>
+                            <span class="tech-tag">Hardware Reuse</span>
+                        </div>
+                    </div>
+
+                    <div class="project-card">
+                        <div>
+                            <h3>Ultrasonic Radar with Tactical HUD</h3>
+                            <p>A working radar system built on an HC-SR04 ultrasonic sensor, paired with a custom browser-based interface styled as a military-grade sweep display — real-time distance data rendered as a live radar sweep.</p>
+                        </div>
+                        <div class="tech-stack mono">
+                            <span class="tech-tag">Hardware</span>
+                            <span class="tech-tag">HC-SR04</span>
+                            <span class="tech-tag">HTML5 Canvas</span>
+                            <span class="tech-tag">UI/UX</span>
+                        </div>
+                    </div>
+
+                    <div class="project-card">
+                        <div>
+                            <h3>GoalFrame (@GoalFrameFilm)</h3>
+                            <p>A YouTube Shorts channel covering the 2026 World Cup, built on a self-made production pipeline: automated clip sourcing with yt-dlp, a full editing workflow on Mac, and audio licensing research to keep content compliant and monetizable.</p>
+                        </div>
+                        <div class="tech-stack mono">
+                            <span class="tech-tag">yt-dlp</span>
+                            <span class="tech-tag">Automation</span>
+                            <span class="tech-tag">Content Strategy</span>
+                        </div>
+                    </div>
+
+                    <div class="project-card">
+                        <div>
+                            <h3>Home Automation & Security System (v1)</h3>
+                            <p>Built a full home security and automation stack without commercial platforms: a Python HTTP server on Mac triggered by an iPhone's wireless-charging state (via iOS Shortcuts) to detect presence, paired with a repurposed Samsung Note 9 running real-time face recognition.</p>
+                        </div>
+                        <div class="tech-stack mono">
+                            <span class="tech-tag">Python</span>
+                            <span class="tech-tag">iOS Shortcuts</span>
+                            <span class="tech-tag">Computer Vision</span>
+                        </div>
+                    </div>
+
+                    <div class="project-card">
+                        <div>
+                            <h3>NFC Automation Station</h3>
+                            <p>Programmed MIFARE Ultralight EV1 NFC tags to trigger iOS Shortcuts automations on tap, then built a dedicated ESP32 + PN532 NFC writer station — custom hardware for programming tags instead of relying on off-the-shelf apps.</p>
+                        </div>
+                        <div class="tech-stack mono">
+                            <span class="tech-tag">ESP32</span>
+                            <span class="tech-tag">PN532 NFC</span>
+                            <span class="tech-tag">Automation</span>
+                        </div>
+                    </div>
+
+                    <div class="project-card">
+                        <div>
+                            <h3>Personal Habit & Sleep Dashboard</h3>
+                            <p>A personal analytics dashboard tracking habits and sleep patterns, shipped as a single dependency-free HTML file — no server, no install, just open and use.</p>
+                        </div>
+                        <div class="tech-stack mono">
+                            <span class="tech-tag">HTML</span>
+                            <span class="tech-tag">CSS</span>
+                            <span class="tech-tag">JavaScript</span>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- Skills Section -->
+            <section id="skills">
+                <h2 class="section-title">> SKILLS_INVENTORY</h2>
+                <div class="skills-grid">
+                    
+                    <div class="skills-category">
+                        <h3>Security & Networking</h3>
+                        <ul>
+                            <li>Applied offensive security (CTF champion)</li>
+                            <li>Traffic analysis & packet inspection (Scapy)</li>
+                            <li>Tailscale mesh VPN & DDNS routing</li>
+                            <li>Private network design & segmentation</li>
+                        </ul>
+                    </div>
+
+                    <div class="skills-category">
+                        <h3>Embedded Systems & IoT</h3>
+                        <ul>
+                            <li>ESP32 ecosystem & streaming pipelines</li>
+                            <li>Raspberry Pi (MotionEye)</li>
+                            <li>Sensors (Ultrasonic, PN532 NFC/RFID)</li>
+                            <li>Motor control (L298N) & 4WD robotics</li>
+                        </ul>
+                    </div>
+
+                    <div class="skills-category">
+                        <h3>Software & Data</h3>
+                        <ul>
+                            <li>Python automation & data pipelines</li>
+                            <li>iOS Shortcuts interaction layers</li>
+                            <li>Algorithmic trading system architecture</li>
+                            <li>Dependency-free UI environments</li>
+                        </ul>
+                    </div>
+
+                    <div class="skills-category">
+                        <h3>Media & Platforms</h3>
+                        <ul>
+                            <li>Automated clip sourcing workflows</li>
+                            <li>Audio compliance & licensing research</li>
+                            <li>Git, GitHub & deployment architecture</li>
+                            <li>Mac-based dev environments</li>
+                        </ul>
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- Trajectory Section -->
+            <section id="trajectory">
+                <h2 class="section-title">> TRAJECTORY_&_EDUCATION</h2>
+                <div class="timeline-card">
+                    <p>I am currently reading <strong>Economics at Aristotle University of Thessaloniki (AUTh)</strong>, paired with a confirmed internship at <strong>Mubadala Investment Company</strong> — Abu Dhabi's sovereign wealth fund — and a planned postgraduate degree in <strong>Informatics</strong> to follow.</p>
+                    <br>
+                    <p style="color: var(--text-muted);">The path is deliberate: combining a foundational understanding of global business and finance with real technical depth, creating a clear route into the frontier of global investment institutions and technology systems.</p>
+                </div>
+            </section>
+
+        </main>
+
+        <!-- Footer -->
+        <footer>
+            <div>
+                <span class="mono">Off-hours:</span> Borussia Dortmund matches & enough Brawl Stars to be dangerous.
+            </div>
+            <div class="footer-links mono">
+                <a href="https://github.com/ppi26" target="_blank">GitHub</a>
+                <a href="https://linkedin.com/in/ppi26" target="_blank">LinkedIn</a>
+                <a href="mailto:your-email@example.com">Contact</a>
+            </div>
+        </footer>
+
+    </div>
+
+</body>
+</html>
